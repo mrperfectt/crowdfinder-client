@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
   Pressable,
   TextInput,
   StyleSheet,
+  Picker,
 } from 'react-native';
 import { createActivity } from '../utils/activity';
+import { DetailsActivity } from '../screens/DetailsActivity';
 
 const CreateActivityScreen = () => {
   const [capacity, onChangeCapacity] = React.useState("");
@@ -39,6 +41,9 @@ const CreateActivityScreen = () => {
       return true;
     };
   };
+  
+  const [selectedValue, setSelectedValue] = useState("sport");
+
   return (
     <View style={styles.container}>
       {
@@ -62,6 +67,16 @@ const CreateActivityScreen = () => {
               onChangeText={onChangeDescription}
               value={description}
             />
+            
+            <Picker
+              selectedValue={selectedValue}
+              style={styles.input}
+              onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+            >
+              <Picker.Item label="Sport" value="sport"/>
+              <Picker.Item label="Social" value="social" />
+            </Picker>
+
             <TextInput
               autoCapitalize="none"
               placeholder="Category"
@@ -91,6 +106,9 @@ const CreateActivityScreen = () => {
             />
           </View>
         ) : null
+        (
+
+        )
       }
       <View style={styles.row}>
         <Pressable
@@ -210,6 +228,11 @@ const styles = StyleSheet.create({
   },
   ButtonText: {
     color: 'white'
+  },
+
+  picker: {
+    height: 40,
+    borderColor: "black"
   }
 });
 
